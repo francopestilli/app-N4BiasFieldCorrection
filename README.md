@@ -1,4 +1,38 @@
 # app-N4BiasFieldCorrection
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Corrects intensity inhomogeneity (bias field) in a T2-weighted image with ANTs N4BiasFieldCorrection, optionally restricted to a brain mask.**
+
+Runs N4BiasFieldCorrection -d 3 on the T2w image, passing the mask with -x, and writes the bias-corrected image. Use it before segmentation or registration when the image shows smooth intensity non-uniformity. The mask must be aligned with the T2w image.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/anat/t2w` · `neuro/mask` (optional) |
+| 📤 **Outputs** | `neuro/anat/t2w` |
+| 🐳 **Container** | `brainlife/ants:2.2.0-1bc` |
+| ⚙️ **Resources** | 1 CPUs · 8 GB memory · 2 h walltime |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.876](https://doi.org/10.25663/brainlife.app.876) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `t2` | `neuro/anat/t2w` | yes | T2-weighted anatomical image (NIfTI). |
+| `mask` | `neuro/mask` | no | Binary brain mask passed to N4 with -x. Must be aligned with the T2w image. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `bias_corrected` | `neuro/anat/t2w` | N4 bias-corrected T2-weighted image (t2.nii.gz). |
+
+📚 **References used by this App:**
+- Avants BB, Tustison NJ, Song G, et al. A reproducible evaluation of ANTs similarity metric performance in brain image registration. NeuroImage 54(3):2033-2044 (2011).
+- Tustison NJ, Avants BB, Cook PA, et al. N4ITK: Improved N3 bias correction. IEEE Trans Med Imaging 29(6):1310-1320 (2010).
+
+<!-- brainlife-app:end -->
+
 **N4 Bias Field Correction (ANTs)**
 
 A portable, containerized wrapper around **ANTs’ `N4BiasFieldCorrection`** (Tustison, N. J. et al, 2010)(Avants, B. B. et al, 2011) to correct intensity inhomogeneity in **T1w or T2w** anatomical MRI. Optional brain masking is supported to improve bias estimation and reduce runtime.
